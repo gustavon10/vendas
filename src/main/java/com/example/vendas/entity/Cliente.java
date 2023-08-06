@@ -1,7 +1,14 @@
-package com.example.vendas.model;
+package com.example.vendas.entity;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Cliente {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @Column(length = 100)
     private String nome;
 
     public Integer getId() {
