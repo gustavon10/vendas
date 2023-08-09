@@ -2,7 +2,10 @@ package com.example.vendas.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
+@Table(name = "cliente")
 public class Cliente {
 
     @Id
@@ -10,6 +13,8 @@ public class Cliente {
     private Integer id;
     @Column(length = 100)
     private String nome;
+    @OneToMany(mappedBy = "clienteId", fetch = FetchType.LAZY) // um cliente para muitos pedidos
+    private Set<Pedido> pedidoId;
 
     public Integer getId() {
         return id;
@@ -37,6 +42,14 @@ public class Cliente {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Set<Pedido> getPedidoId() {
+        return pedidoId;
+    }
+
+    public void setPedidoId(Set<Pedido> pedidoId) {
+        this.pedidoId = pedidoId;
     }
 
     @Override

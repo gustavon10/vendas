@@ -1,9 +1,20 @@
 package com.example.vendas.entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "item_pedido")
 public class ItemPedido {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private Pedido pedidoId;
-    private Produto produtoId;
+    @ManyToOne
+    @JoinColumn(name = "pedido_id")
+    private Pedido pedidoId; // classe estrangeira
+    @ManyToOne
+    @JoinColumn(name = "produto_id")
+    private Produto produtoId; // classe estrangeira
     private Integer quantidade;
 
 
