@@ -1,5 +1,6 @@
 package com.example.vendas.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -13,12 +14,12 @@ public class Cliente {
     private Integer id;
     @Column(length = 100)
     private String nome;
+    @Column(length = 11)
+    private String cpf;
+    @JsonIgnore
     @OneToMany(mappedBy = "clienteId", fetch = FetchType.LAZY) // um cliente para muitos pedidos
     private Set<Pedido> pedidoId;
 
-    public Integer getId() {
-        return id;
-    }
 
     public Cliente() {
     }
@@ -26,6 +27,10 @@ public class Cliente {
     public Cliente(Integer id, String nome) {
         this.id = id;
         this.nome = nome;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public Cliente(String nome) {
@@ -50,6 +55,14 @@ public class Cliente {
 
     public void setPedidoId(Set<Pedido> pedidoId) {
         this.pedidoId = pedidoId;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     @Override

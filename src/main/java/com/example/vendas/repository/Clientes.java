@@ -21,5 +21,4 @@ public interface Clientes extends JpaRepository<Cliente, Integer> {
     @Query(" select c from Cliente c left join fetch c.pedidoId where c.id = :id ")
     Cliente findClienteFetchPedidos(@Param("id") Integer id);
 
-
 }
