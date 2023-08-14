@@ -60,9 +60,10 @@ public class ClienteController {
 
     @GetMapping
     public List<Cliente> find(Cliente filtro) {
-        ExampleMatcher matcher = ExampleMatcher.matching()
-                                                .withIgnoreCase()
-                                                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+        ExampleMatcher matcher =
+                ExampleMatcher.matching()
+                        .withIgnoreCase()
+                        .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
 
         Example example = Example.of(filtro, matcher);
         return clientes.findAll(example);
