@@ -1,7 +1,7 @@
-package com.example.vendas.controller;
+package com.example.vendas.rest.controller;
 
-import com.example.vendas.entity.Produto;
-import com.example.vendas.repository.Produtos;
+import com.example.vendas.domain.entity.Produto;
+import com.example.vendas.domain.repository.ProdutosRepository;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -16,9 +16,9 @@ import java.util.List;
 @RequestMapping("/api/produtos")
 public class ProdutoController {
 
-    private Produtos produtos;
+    private ProdutosRepository produtos;
 
-    public ProdutoController(Produtos produtos) {
+    public ProdutoController(ProdutosRepository produtos) {
         this.produtos = produtos;
     }
 
