@@ -1,7 +1,5 @@
 package com.example.vendas.domain.entity;
 
-import com.example.vendas.domain.entity.Cliente;
-import com.example.vendas.domain.entity.ItemPedido;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

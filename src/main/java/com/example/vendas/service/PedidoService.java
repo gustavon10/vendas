@@ -1,5 +1,8 @@
 package com.example.vendas.service;
 
-public interface PedidoService {
+import com.example.vendas.domain.entity.Pedido;
+import com.example.vendas.rest.dto.PedidoDTO;
 
+public interface PedidoService {
+    Pedido salvar(PedidoDTO dto);
 }
