@@ -4,10 +4,12 @@ import com.example.vendas.domain.entity.Cliente;
 import com.example.vendas.domain.entity.ItemPedido;
 import com.example.vendas.domain.entity.Pedido;
 import com.example.vendas.domain.entity.Produto;
+import com.example.vendas.domain.enums.StatusPedido;
 import com.example.vendas.domain.repository.ClientesRepository;
 import com.example.vendas.domain.repository.ItensPedidoRepository;
 import com.example.vendas.domain.repository.PedidosRepository;
 import com.example.vendas.domain.repository.ProdutosRepository;
+import com.example.vendas.exception.PedidoNaoEncontradoException;
 import com.example.vendas.exception.RegraNegocioException;
 import com.example.vendas.rest.dto.ItemPedidoDTO;
 import com.example.vendas.rest.dto.PedidoDTO;
@@ -18,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,12 +45,28 @@ public class PedidoServiceImpl implements PedidoService {
         pedido.setTotal(dto.getTotal());
         pedido.setDataPedido(LocalDate.now());
         pedido.setClienteId(cliente);
+        pedido.setStatus(StatusPedido.REALIZADO);
 
-        List<ItemPedido> itensPedidos = converterItens(pedido,dto.getItens());
+        List<ItemPedido> itensPedidos = converterItens(pedido, dto.getItens());
         repository.save(pedido);
         itensPedidoRepository.saveAll(itensPedidos);
         pedido.setItens(itensPedidos);
         return pedido;
+    }
+
+    @Override
+    public Optional<Pedido> obterPedidoCompleto(Integer id) {
+        return repository.findByIdFetchItens(id);
+    }
+
+    @Override
+    @Transactional
+    public void atualizaStatus(Integer id, StatusPedido statusPedido) {
+        repository.findById(id)
+                .map( pedido -> {
+                    pedido.setStatus(statusPedido);
+                    return repository.save(pedido);
+                }).orElseThrow( () -> new PedidoNaoEncontradoException());
     }
 
     private List<ItemPedido> converterItens(Pedido pedido, List<ItemPedidoDTO> itens) {
