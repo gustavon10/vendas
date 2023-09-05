@@ -2,6 +2,7 @@ package com.example.vendas.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class Cliente {
     private Integer id;
 
     @Column(length = 100)
+    @NotEmpty(message = "campo nome é obrigatório.")
     private String nome;
 
     @Column(length = 11)
