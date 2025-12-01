@@ -3,6 +3,7 @@ package com.example.vendas.domain.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,7 +28,7 @@ public class Cliente {
 
     @Column(length = 11)
     @NotEmpty(message = "campo CPF é obrigatório.")
-    @CPF(message = "informe um CPF válido.") // annotation expecifica de cpf.
+    @Pattern(regexp = "\\d{11}", message = "O CPF deve conter exatamente 11 dígitos numéricos.") // Aceita qualquer sequência de 11 números
     private String cpf;
 
     @JsonIgnore
