@@ -33,7 +33,7 @@ Certifique-se de ter o **Docker** instalado no seu sistema.
 
 3. **Execute o contêiner Docker**
    ```bash
-   docker run -p 8080:8080 vendas-app
+   docker run -p 8080:8080 vendas
    ```
 
 4. **Teste o sistema**
